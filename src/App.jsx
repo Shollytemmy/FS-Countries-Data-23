@@ -7,6 +7,12 @@ import { CountryList } from './components/CountryList'
 function App() {
   const [countries, setCountries] = useState([])
   const [query, setQuery] = useState("")
+  const [togglebtn, setTogglebtn] = useState(false)
+
+  // bec3ab759388944a94e6c8a6f15a50dc
+  const key = "bec3ab759388944a94e6c8a6f15a50dc"
+  const apiKey = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid"
+  // http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={API key}
 
 
 
@@ -20,6 +26,13 @@ function App() {
       
     })
 
+  }, [])
+
+  useEffect(() => {
+    axios.get("http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=bec3ab759388944a94e6c8a6f15a50dc")
+    .then((response) => {
+      console.log("openWeather",response.data)
+    })
   }, [])
 
   
@@ -57,6 +70,11 @@ console.log(filteredCountry)
                 <div>
                   <img src={data.flags.png} alt="" />
                 </div>
+                <div>
+                  <h1>Weather in {data.capital}</h1>
+
+                </div>
+                
               </div>
             )
           })}
@@ -64,10 +82,15 @@ console.log(filteredCountry)
       )
       :
     
+      <div>
+      <CountryList countries={countries} filteredCountry={filteredCountry} togglebtn={togglebtn} setTogglebtn={setTogglebtn} />
+      </div>
+
       
-      <CountryList countries={countries} filteredCountry={filteredCountry} />
+
 }
     </div>
+    
   )
 }
 
@@ -77,3 +100,4 @@ export default App
       : 
       
  */
+//{togglebtn && (country.name.common)}

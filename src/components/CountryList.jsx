@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const CountryList = ({filteredCountry}) => {
+export const CountryList = ({filteredCountry, togglebtn, setTogglebtn}) => {
 
   const handleView = (country) => {
     return(
@@ -13,7 +13,9 @@ export const CountryList = ({filteredCountry}) => {
         filteredCountry && filteredCountry.map((country, i) => {
           return ( 
             <div key={i}>
-                <p className="name" key={i}>{country.name.common} <button onClick={() => handleView(country)}>show</button></p>
+                <p className="name" key={i}>{country.name.common}<button>see</button></p>
+
+                
                
 
             </div>
