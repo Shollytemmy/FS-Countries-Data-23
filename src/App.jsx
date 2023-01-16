@@ -45,7 +45,7 @@ console.log(filteredCountry)
               <div key={i}>
                 <h1>{data.name.common}</h1>
                 <div>
-                  <p>Capital {data.capital}</p>
+                  <strong>Capital {data.capital}</strong>
 
                 </div>
                 
