@@ -8,6 +8,13 @@ function App() {
   const [countries, setCountries] = useState([])
   const [query, setQuery] = useState("")
   const [togglebtn, setTogglebtn] = useState(false)
+  const [lon, setLon] = useState([])
+
+  let lat1 = 0
+  let lon1 = 0
+ 
+  
+  
 
   // bec3ab759388944a94e6c8a6f15a50dc
   const key = "bec3ab759388944a94e6c8a6f15a50dc"
@@ -24,16 +31,22 @@ function App() {
       // console.log(response)
       setCountries(response.data)
       
-    })
+    }, [countries])
 
   }, [])
 
   useEffect(() => {
-    axios.get("http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=bec3ab759388944a94e6c8a6f15a50dc")
+    const getData = setTimeout(() => {
+
+      axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lon1}&lon=${lat1}&appid=bec3ab759388944a94e6c8a6f15a50dc`)
     .then((response) => {
       console.log("openWeather",response.data)
     })
-  }, [])
+
+    return () => clearTimeout(getData)
+
+    }, 5000)
+  }, [query])
 
   
 
@@ -54,11 +67,22 @@ console.log(filteredCountry)
       : filteredCountry.length === 1 ? (
         <>
           {filteredCountry.map((data,i) =>{
+
+         const [first, second] = data.latlng
+         lat1 = first
+         lon1 = second
+
+
+            
+            console.log("Longitude", first, second)
+
+            
             return (
               <div key={i}>
                 <h1>{data.name.common}</h1>
                 <div>
                   <strong>Capital {data.capital}</strong>
+
 
                 </div>
                 
@@ -72,6 +96,7 @@ console.log(filteredCountry)
                 </div>
                 <div>
                   <h1>Weather in {data.capital}</h1>
+                  <p>{[...data.latlng]}</p>
 
                 </div>
                 
@@ -96,7 +121,7 @@ console.log(filteredCountry)
 
 export default App
 
-/**<div>{filteredCountry.length > 10 ? (<span>Too Many matches specify another filter</span>) 
+/**<div>{filteredCountry.length > 10 ? (<span>Too Many matches specify another filter</span>) setLon([...data.latlng])
       : 
       
  */
