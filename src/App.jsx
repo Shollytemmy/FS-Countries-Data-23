@@ -24,8 +24,7 @@ function App() {
 
  
   const key = "bec3ab759388944a94e6c8a6f15a50dc"
-  const apiKey = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid"
- 
+ const baseUrl = "https://api.openweathermap.org/data/2.5/weather"
 
 
 
@@ -44,7 +43,7 @@ function App() {
   useEffect(() => {
     const getData = setTimeout(() => {
 
-      axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lon1}&lon=${lat1}&appid=bec3ab759388944a94e6c8a6f15a50dc`)
+      axios.get(`${baseUrl}?lat=${lon1}&lon=${lat1}&appid=${key}`)
     .then((response) => {
       
       setWeather(response.data)
@@ -53,7 +52,7 @@ function App() {
     return () => clearTimeout(getData)
 
     }, 2000)
-  }, [])
+  }, [query])
 
   
 
@@ -133,9 +132,3 @@ function App() {
 }
 
 export default App
-
-/**<div>{filteredCountry.length > 10 ? (<span>Too Many matches specify another filter</span>) setLon([...data.latlng])
-      : 
-      
- */
-//{togglebtn && (country.name.common)}
