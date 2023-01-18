@@ -8,18 +8,24 @@ function App() {
   const [countries, setCountries] = useState([])
   const [query, setQuery] = useState("")
   const [togglebtn, setTogglebtn] = useState(false)
-  const [lon, setLon] = useState([])
+  const [weather, setWeather] = useState([])
+
+ 
 
   let lat1 = 0
   let lon1 = 0
+
+ 
+
+
  
   
   
 
-  // bec3ab759388944a94e6c8a6f15a50dc
+ 
   const key = "bec3ab759388944a94e6c8a6f15a50dc"
   const apiKey = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid"
-  // http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={API key}
+ 
 
 
 
@@ -28,7 +34,7 @@ function App() {
 
     axios.get("https://restcountries.com/v3.1/all")
     .then((response) => {
-      // console.log(response)
+      
       setCountries(response.data)
       
     }, [countries])
@@ -40,18 +46,19 @@ function App() {
 
       axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lon1}&lon=${lat1}&appid=bec3ab759388944a94e6c8a6f15a50dc`)
     .then((response) => {
-      console.log("openWeather",response.data)
+      
+      setWeather(response.data)
     })
 
     return () => clearTimeout(getData)
 
-    }, 5000)
-  }, [query])
+    }, 2000)
+  }, [])
 
   
 
   const filteredCountry = countries.filter((country) => country.name.common.toLowerCase().includes(query.toLowerCase()))
-console.log(filteredCountry)
+
  
 
 
@@ -74,7 +81,7 @@ console.log(filteredCountry)
 
 
             
-            console.log("Longitude", first, second)
+            
 
             
             return (
@@ -96,7 +103,13 @@ console.log(filteredCountry)
                 </div>
                 <div>
                   <h1>Weather in {data.capital}</h1>
-                  <p>{[...data.latlng]}</p>
+                  <p><strong>Temprature {weather.main.temp} Celcius</strong></p>
+
+                  <div>
+                    <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="" />
+                    <strong>{weather.weather[0].description}</strong>
+                    <p><strong>Wind {weather.wind.speed} m/s</strong></p>
+                  </div>
 
                 </div>
                 
